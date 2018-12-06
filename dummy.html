@@ -1,0 +1,45 @@
+<html>
+<head>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js" integrity="sha256-tzkPfJgrAehd0mUYdxwWvn+TQrk2VjRJL/xP9iW5fhk=" crossorigin="anonymous"></script><!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+</head>
+<body>
+<div id="navbar"><span>jsPDF Tutorial - Form Filling</span></div>
+<div id="wrapper">
+
+		<input type="text" id="name" value="" placeholder="Name"><br>
+		<input type="text" id="company" value="" placeholder="Company" /><br>
+		<input type="text" id="department" value="" placeholder="Department" /><br>
+		<input type="text" id="title" value="" placeholder="Job Title"/><br>
+		<input type="button" id="button" value="Submit"/>
+<script>
+	$('#button').click(function() {
+        console.log('clicked')
+		
+		 var doc = new jsPDF('l	', 'mm', [90,54]);
+		 var imgData = 'data:image/jpeg;base64,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'
+		 
+		 doc.addImage(imgData, 'JPEG', 0, 0, 90, 54);
+		 
+		var name = $('#name').val();
+		var company = $('#company').val();
+		var department = $('#department').val();
+		var title = $('#title').val();
+		
+		doc.addFont('ComicSansMS', 'Comic Sans', 'normal');
+		doc.setFont('Comic Sans');
+		doc.setFontSize(10);
+		
+		doc.text(10, 5, name);
+		doc.text(10, 10, company);
+		doc.text(10, 15, department);
+		doc.text(10, 20, title);
+		doc.save('test.pdf');
+
+	});
+</script>
+</body>
+</html>
