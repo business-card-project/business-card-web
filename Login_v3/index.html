@@ -25,11 +25,18 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--======================= jsPDF Script ==================================================-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js" integrity="sha256-tzkPfJgrAehd0mUYdxwWvn+TQrk2VjRJL/xP9iW5fhk=" crossorigin="anonymous"></script><!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+
 <!--===============================================================================================-->
+
 </head>
 <body>
 	
 	<div class="limiter" id="app">
+		<!-- <template-card> </template-card> -->
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="post">
@@ -42,48 +49,53 @@
 					</span>
 
 					<div class="wrap-input100">
-						<input class="input100" type="text" placeholder="Your name here.." v-model="name">
+						<input class="input100" type="text" placeholder="Your name here.." v-model="identity.name">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
-					<div class="wrap-input100" v-if="name !== ''">
+					<div class="wrap-input100" v-if="identity.name !== ''">
 						<label class="input100">pardon me, may we guess your gender?</label>
 						<button  type="button" class=" input100 btn btn-outline-primary" v-on:click="guessGender()">Yes</button>
 						<button  type="button" class=" input100 btn btn-outline-danger" v-on:click="hideGuess()">No</button>
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100" v-if="gender">
-						<input class="input100" type="text" placeholder="Your gender here.." v-model="gender" >
+					<div class="wrap-input100" v-if="identity.gender">
+						<input class="input100" type="text" placeholder="Your gender here.." v-model="identity.gender" >
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100">
-						<input class="input100" type="text"  placeholder="Your profession here.." v-model="profession">
+						<input class="input100" type="text"  placeholder="Your profession here.." v-model="identity.profession">
+						<span class="focus-input100" ></span>
+					</div>
+					
+					<div class="wrap-input100">
+						<input class="input100" type="text"  placeholder="Your company/city.." v-model="identity.company">
+						<span class="focus-input100" ></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" placeholder="Your phone here.." v-model="identity.phone">
+						<span class="focus-input100" ></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" placeholder="Your email here.." v-model="identity.email">
 						<span class="focus-input100" ></span>
 					</div>
 
 					<div class="wrap-input100">
-						<input class="input100" type="text" placeholder="Your email here.." v-model="email">
+						<input class="input100" type="text" placeholder="Your social media here.." v-model="identity.socialMedia">
 						<span class="focus-input100" ></span>
 					</div>
 
-					<div class="wrap-input100">
-						<input class="input100" type="text" placeholder="Your social media here.." v-model="socialMedia">
-						<span class="focus-input100" ></span>
-					</div>
-
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Create
-						</button>
-					</div>
+					<template1-button v-bind:data='identity'> </template1-button>
 				</form>
 			</div>
 		</div>
 	</div>
 
 	<div id="dropDownSelect1"></div>
+
 <!--======Vuejs, axios========================================================-->
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -102,6 +114,7 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
+	<script src="js/template-1.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/index.js"></script>
 
