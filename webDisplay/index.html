@@ -14,22 +14,77 @@
   </head>
   <body>
     <div id='admin'>
-
       <div class="jumbotron">
         <div class="d-flex justify-content-center"><img v-bind:src="buzzcardLogo"></div>
       </div>
-      
+
       <div class="d-flex justify-content-center">
         <b-form method="post" enctype="multipart/form-data">
           <input type="file" name="file" style="border:3px solid purple" @change='data'> 
           <!-- <input type="submit" value="Upload" name="submit" v-on:click.prevent='upload' > -->
           <b-button type="b-button" class="btn btn-primary" @click.prevent='upload'>Upload</b-button>
         </b-form>
-      
-        <div class="col-sm-3" v-if="imageLink != '' ">
-          <img v-bind:src="cardLink" alt="cardTemplate"/>
-          <img v-bind:src="imageLink" alt="logo" class="col-sm-3 inner-image"/>
+        
+        <!-- {{imageLink}} -->
+        <!-- {{cardTemplateLink}} -->
+        <div class="row" v-if="cardTemplateLink != '' ">
+          <img class="inner-image" v-bind:src="cardTemplateLink" alt="cardTemplate" width="400" height="300" style="border:1px solid black"/>
+          <!-- <img v-bind:src="imageLink" alt="logo" class="col-sm-3 inner-image"/> -->
         </div>
+      </div>
+      <br>
+
+      <div class="d-flex justify-content-center">
+        <div class="col-sm-3 btn pull-right">
+          <br>
+          <h2>CARD OPTION:</h2>
+        </div>
+        <br>
+        <div class="col-sm-3">
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416496979811.jpg" href="#" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416496979811.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441637049432.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441637049432.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441638783913.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441638783913.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441639170524.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441639170524.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441639818925.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441639818925.jpg') ">
+          </div>
+        </div>
+
+
+        <div class="col-sm-3">
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441644104786.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441644104786.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416496979811.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416496979811.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441648037088.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441648037088.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416503823212.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416503823212.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416488054410.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416488054410.jpg') ">
+          </div>
+        </div>
+        
       </div>
 
     </div>
@@ -44,7 +99,7 @@
         data:{
           buzzcardLogo: 'https://storage.googleapis.com/upload-business-card/1544154423153logo-buzzcard.png',
           file: '',
-          cardLink: 'https://unsplash.it/400/300?random',
+          cardTemplateLink: "",
           imageLink: ''
         },
         created(){
@@ -68,6 +123,9 @@
             .catch(error => {
               console.log(error.response);
             });
+          },
+          changeTemplate(param) {
+            this.cardTemplateLink = param
           }
         }
       })
