@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BuzzCard</title>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>  
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id='admin'>
+
+      <div class="jumbotron">
+        <div class="d-flex justify-content-center"><img v-bind:src="buzzcardLogo"></div>
+      </div>
+      
+      <div class="d-flex justify-content-center">
+        <b-form method="post" enctype="multipart/form-data">
+          <input type="file" name="file" style="border:3px solid purple" @change='data'> 
+          <!-- <input type="submit" value="Upload" name="submit" v-on:click.prevent='upload' > -->
+          <b-button type="b-button" class="btn btn-primary" @click.prevent='upload'>Upload</b-button>
+        </b-form>
+      
+        <div class="col-sm-3" v-if="imageLink != '' ">
+          <img v-bind:src="cardLink" alt="cardTemplate"/>
+          <img v-bind:src="imageLink" alt="logo" class="col-sm-3 inner-image"/>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script>
+      new Vue({
+        el: '#admin',
+        data:{
+          buzzcardLogo: 'https://storage.googleapis.com/upload-business-card/1544154423153logo-buzzcard.png',
+          file: '',
+          cardLink: 'https://unsplash.it/400/300?random',
+          imageLink: ''
+        },
+        created(){
+    
+        },
+        methods: {
+          data(fileUpload){
+            console.log(fileUpload)
+            this.file = fileUpload.target.files[0]
+            console.log(this.file)
+          },
+          upload(data){  
+            const formData = new FormData()
+            formData.append('image', this.file)
+            axios.post('http://localhost:3000/upload', formData)
+            .then(response => {
+              console.log(response)
+              console.log(response.data.link);
+              this.imageLink = response.data.link
+            })
+            .catch(error => {
+              console.log(error.response);
+            });
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>
