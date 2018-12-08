@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BuzzCard</title>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>  
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id='admin'>
+      <div class="jumbotron">
+        <div class="d-flex justify-content-center"><img v-bind:src="buzzcardLogo"></div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <b-form method="post" enctype="multipart/form-data">
+          <input type="file" name="file" style="border:3px solid purple" @change='data'> 
+          <!-- <input type="submit" value="Upload" name="submit" v-on:click.prevent='upload' > -->
+          <b-button type="b-button" class="btn btn-primary" @click.prevent='upload'>Upload</b-button>
+        </b-form>
+        
+        <!-- {{imageLink}} -->
+        <!-- {{cardTemplateLink}} -->
+        <div class="row" v-if="cardTemplateLink != '' ">
+          <img class="inner-image" v-bind:src="cardTemplateLink" alt="cardTemplate" width="400" height="300" style="border:1px solid black"/>
+          <!-- <img v-bind:src="imageLink" alt="logo" class="col-sm-3 inner-image"/> -->
+        </div>
+      </div>
+      <br>
+
+      <div class="d-flex justify-content-center">
+        <div class="col-sm-3 btn pull-right">
+          <br>
+          <h2>CARD OPTION:</h2>
+        </div>
+        <br>
+        <div class="col-sm-3">
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416496979811.jpg" href="#" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416496979811.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441637049432.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441637049432.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441638783913.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441638783913.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441639170524.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441639170524.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441639818925.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441639818925.jpg') ">
+          </div>
+        </div>
+
+
+        <div class="col-sm-3">
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441644104786.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441644104786.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416496979811.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416496979811.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/15441648037088.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/15441648037088.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416503823212.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416503823212.jpg') ">
+          </div>
+          <br>
+          <div class="col-sm-6">
+            <img src="https://storage.googleapis.com/upload-business-card/154416488054410.jpg" alt="option1" width="200" height="100" style="border:1px solid black" v-on:click="changeTemplate('https://storage.googleapis.com/upload-business-card/154416488054410.jpg') ">
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script>
+      new Vue({
+        el: '#admin',
+        data:{
+          buzzcardLogo: 'https://storage.googleapis.com/upload-business-card/1544154423153logo-buzzcard.png',
+          file: '',
+          cardTemplateLink: "",
+          imageLink: ''
+        },
+        created(){
+    
+        },
+        methods: {
+          data(fileUpload){
+            console.log(fileUpload)
+            this.file = fileUpload.target.files[0]
+            console.log(this.file)
+          },
+          upload(data){  
+            const formData = new FormData()
+            formData.append('image', this.file)
+            axios.post('http://localhost:3000/upload', formData)
+            .then(response => {
+              console.log(response)
+              console.log(response.data.link);
+              this.imageLink = response.data.link
+            })
+            .catch(error => {
+              console.log(error.response);
+            });
+          },
+          changeTemplate(param) {
+            this.cardTemplateLink = param
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>

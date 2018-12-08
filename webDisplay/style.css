@@ -1,0 +1,9 @@
+body {
+    font-family: 'cursive';
+}
+
+.inner-image {
+    position: relative;
+    /* top: 40px; */
+    left: 20px;
+}
